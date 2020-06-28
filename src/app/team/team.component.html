@@ -1,0 +1,12 @@
+<p>team works!</p>
+<button (click)=getTeamnaam()>klik hier om het leukste team te vinden</button>
+{{teamnaam}}
+
+
+<button (click)=getSpelers()>klik hier voor alle spelers van team 1</button>
+<div *ngFor="let speler of spelers">
+  <span>{{' ' + speler.naam + ', ' + speler.basispositie + ', ' + speler.rugnummer + ', ' + speler.email}}</span>
+</div>
+<button (click)=clearAll()>klik hier voor clear</button>
+
+
