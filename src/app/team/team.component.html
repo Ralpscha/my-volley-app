@@ -1,32 +1,29 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
   <div class="card">
     <img src="assets/plaatje.png" class="card-img-top" alt="helaas geen plaatje">
-    <h1 class=card-header>Check your team</h1>
+    <h1 class=card-header>Volleybal Competitie</h1>
     <div class="row">
-      <div class="col-sm">
+      <div class="col-12 col-lg-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Toon alle teams</h5>
             <button type="button" class="btn btn-info btn-lg" (click)=getAllTeams()>Alle Teams</button>
           </div>
           <ul class="list-group list-group-flush" *ngFor="let team of teams">
-            <li class="list-group-item">{{team.teamID + ' - ' + team.teamnaam}}
-              <!--              <div class ="align-items-end">-->
-              <!--                <button type="button" class="btn btn-info btn-sm" (click)=getSpelers()>Teamspelers</button>-->
-              <!--              </div>-->
-            </li>
+            <li class="list-group-item">{{team.teamID + ' - ' + team.teamnaam}}</li>
           </ul>
         </div>
       </div>
-      <div class="col-sm">
-        <div class=card>
+      <div class="col-12 col-lg-4">
+        <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Toon alle spelers van een team</h5>
+            <h5 class="card-title">Toon teamspelers</h5>
             <div class="input-group">
               <div class="input-group-append">
-                <button type="button" class="btn btn-info btn-lg" id="button-addon1" (click)=getSpelers()>Teamspelers</button>
+                <button type="button" class="btn btn-info btn-lg col-md" id="button-addon1" (click)=getSpelers()>Spelers</button>
                 <input type="text"
-                       placeholder="Teamnummer"
+                       class="col-md"
+                       placeholder="Teamnr."
                        aria-describedby="button-addon1"
                        [(ngModel)]="teamnummer">
               </div>
@@ -47,18 +44,20 @@
           </ul>
         </div>
       </div>
-      <div class="col-sm">
-        <div class="card-body">
-          <h5 class="card-title">Wis alle gegevens</h5>
-          <div class="mb-2">
-            <button type="button" class="btn btn-dark" (click)=clearTeams()>wis teams</button>
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <div class="mb-2">
+              <button type="button" class="btn btn-dark col-lg-6" (click)=clearTeams()>wis teams</button>
+            </div>
+            <button type="button" class="btn btn-dark col-lg-6" (click)=clearSpelers()>wis spelers</button>
           </div>
-          <button type="button" class="btn btn-dark" (click)=clearSpelers()>wis spelers</button>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-8">
+      <div class="col-12">
         <div class="card">
           <div class=card-body>
             <p class="card-text">Seizoen 2020 begint september aanstaande en alle teams zijn ondertussen gevormd en ingedeeld in de diverse regionale competities. Deze app geeft je het overzicht van de wedstrijden die je gaat spelen en welke teamleden erbij aanwezig zijn.</p>
@@ -66,8 +65,77 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Alle wedstrijden van mijn team</h5>
+            <div class="input-group">
+              <div class="input-group-append">
+            <button type="button" class="btn btn-info btn-lg" (click)=getWedstrijden()>Wedstrijden</button>
+                <input type="text"
+                       class="col-md"
+                       placeholder="Teamnr."
+                       aria-describedby="button-addon1"
+                       [(ngModel)]="teamnummerWed">
+              </div>
+            </div>
+            <div *ngIf="errormessageWed">
+              <div class="alert alert-warning">
+                {{errormessageWed}}
+              </div>
+            </div>
+            <div *ngIf="teamnaamWed">
+              <div class="alert alert-info mt-2">
+                {{teamnaamWed}}
+              </div>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush" *ngFor="let wedstrijd of wedstrijden">
+            <li class="list-group-item">{{wedstrijd.typeEvent + ' , '
+            + wedstrijd.thuisteam.teamnaam + ' tegen ' + wedstrijd.tegenstander.teamnaam + ' op ' + wedstrijd.weekdag + ' start: ' + wedstrijd.starttijd}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Beschikbare spelers bij wedstrijd</h5>
+            <div class="input-group">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-info btn-lg col-md" id="button-addon2" (click)=getSpelersWedstrijd()>Spelers</button>
+                <input type="text"
+                       class="col-md"
+                       placeholder="Wedstrijdnr."
+                       aria-describedby="button-addon1"
+                       [(ngModel)]="wedstrijdnummer">
+              </div>
+            </div>
+            <div *ngIf="errormessageSpelWed">
+              <div class="alert alert-warning">
+                {{errormessageSpelWed}}
+              </div>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush" *ngFor="let speler of spelersWed">
+            <li class="list-group-item">{{speler.naam + ', ' + speler.basispositie + ', ' + speler.rugnummer + ', ' + speler.email}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <div class="mb-2">
+              <button type="button" class="btn btn-light col-lg-6" (click)=clearWedstrijden()>wis wedstrijden</button>
+            </div>
+            <button type="button" class="btn btn-light col-lg-6" (click)=clearSpelersWedstrijden()>wis spelers</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="card-body">
-      <footer class="card-footer text-muted text-md-center">Juni 2020</footer>
+      <footer class="card-footer text-muted text-md-center"> Zutphen - Juni 2020</footer>
     </div>
   </div>
 </div>

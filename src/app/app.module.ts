@@ -8,17 +8,19 @@ import { windowFactory, WindowToken } from './shared/environment/window/window.t
 import { AppRoutingModule } from './app-routing.module';
 import { UrlService } from './shared/urls/url.service';
 import { EnvironmentService } from './shared/environment/environment.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
             declarations: [
               AppComponent,
               TeamComponent
             ],
-            imports: [
-              BrowserModule,
-              HttpClientModule,
-              AppRoutingModule
-            ],
+              imports: [
+                  BrowserModule,
+                  HttpClientModule,
+                  AppRoutingModule,
+                  FormsModule
+              ],
             providers: [
               AanvraagService,
               { provide: WindowToken, useFactory: windowFactory },

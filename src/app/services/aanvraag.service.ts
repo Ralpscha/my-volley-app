@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Team } from '../dtos/team.model';
 import { UrlService } from '../shared/urls/url.service';
 import { Speler } from '../dtos/speler.model';
+import { Wedstrijd } from '../dtos/wedstrijd.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,25 @@ export class AanvraagService {
       map(response  => response as Team),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
+  }
+
+  getWedstrijden(teamID): Observable<Wedstrijd[]> {
+    const url = 'http://localhost:8080/team/' + teamID + '/events';
+    const wedstrijden = this.http.get<Wedstrijd[]>(url);
+    return wedstrijden.pipe(
+      map(response  => response as Wedstrijd[]),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+
+  }
+
+  getSpelersWedstrijd(wedstrijdID): Observable<Speler[]> {
+    const url = 'http://localhost:8080/team/' + wedstrijdID + '/wedstrijden';
+    const spelers = this.http.get<Speler[]>(url);
+    return spelers.pipe(
+      map(response => response as Speler[]),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
+
   }
 }
