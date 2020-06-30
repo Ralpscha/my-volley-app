@@ -1,12 +1,74 @@
-<p>team works!</p>
-<button (click)=getTeamnaam()>klik hier om het leukste team te vinden</button>
-{{teamnaam}}
-
-
-<button (click)=getSpelers()>klik hier voor alle spelers van team 1</button>
-<div *ngFor="let speler of spelers">
-  <span>{{' ' + speler.naam + ', ' + speler.basispositie + ', ' + speler.rugnummer + ', ' + speler.email}}</span>
+<div class="container" xmlns="http://www.w3.org/1999/html">
+  <div class="card">
+    <img src="assets/plaatje.png" class="card-img-top" alt="helaas geen plaatje">
+    <h1 class=card-header>Check your team</h1>
+    <div class="row">
+      <div class="col-sm">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Toon alle teams</h5>
+            <button type="button" class="btn btn-info btn-lg" (click)=getAllTeams()>Alle Teams</button>
+          </div>
+          <ul class="list-group list-group-flush" *ngFor="let team of teams">
+            <li class="list-group-item">{{team.teamID + ' - ' + team.teamnaam}}
+              <!--              <div class ="align-items-end">-->
+              <!--                <button type="button" class="btn btn-info btn-sm" (click)=getSpelers()>Teamspelers</button>-->
+              <!--              </div>-->
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class=card>
+          <div class="card-body">
+            <h5 class="card-title">Toon alle spelers van een team</h5>
+            <div class="input-group">
+              <div class="input-group-append">
+                <button type="button" class="btn btn-info btn-lg" id="button-addon1" (click)=getSpelers()>Teamspelers</button>
+                <input type="text"
+                       placeholder="Teamnummer"
+                       aria-describedby="button-addon1"
+                       [(ngModel)]="teamnummer">
+              </div>
+            </div>
+            <div *ngIf="errormessage">
+              <div class="alert alert-warning">
+                {{errormessage}}
+              </div>
+            </div>
+            <div *ngIf="teamnaam">
+              <div class="alert alert-info mt-2">
+                {{teamnaam}}
+              </div>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush" *ngFor="let speler of spelers">
+            <li class="list-group-item">{{speler.naam + ', ' + speler.basispositie + ', ' + speler.rugnummer + ', ' + speler.email}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm">
+        <div class="card-body">
+          <h5 class="card-title">Wis alle gegevens</h5>
+          <div class="mb-2">
+            <button type="button" class="btn btn-dark" (click)=clearTeams()>wis teams</button>
+          </div>
+          <button type="button" class="btn btn-dark" (click)=clearSpelers()>wis spelers</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="card">
+          <div class=card-body>
+            <p class="card-text">Seizoen 2020 begint september aanstaande en alle teams zijn ondertussen gevormd en ingedeeld in de diverse regionale competities. Deze app geeft je het overzicht van de wedstrijden die je gaat spelen en welke teamleden erbij aanwezig zijn.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <footer class="card-footer text-muted text-md-center">Juni 2020</footer>
+    </div>
+  </div>
 </div>
-<button (click)=clearAll()>klik hier voor clear</button>
-
 

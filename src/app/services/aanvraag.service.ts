@@ -15,26 +15,32 @@ export class AanvraagService {
               private url: UrlService) {
   }
 
-  getTeamnaam(teamID): Observable<string> {
+  getAllTeams(): Observable<Team[]> {
     // const url = this.url.volleybalService;
-    const url = 'http://localhost:8080/team/' + teamID;
-    const teamnaam = this.http.get<Team>(url);
-    const reply = teamnaam.pipe(
-                 map((response: Team) => response.teamnaam),
+    const url = 'http://localhost:8080/team/teams';
+    const teams = this.http.get<Team[]>(url);
+    return teams.pipe(
+                 map((response: Team[]) => response as Team[]),
                  catchError((error: HttpErrorResponse) => throwError(error))
                );
-    console.log('teamnaam:' + reply);
-    return reply;
   }
 
   getSpelers(teamID): Observable<Speler[]> {
     const url = 'http://localhost:8080/team/' + teamID +'/spelers';
-    const speler = this.http.get<Speler[]>(url);
-    const reply = speler.pipe(
+    const spelers = this.http.get<Speler[]>(url);
+    return spelers.pipe(
       map(response => response as Speler[]),
       catchError((error: HttpErrorResponse) => throwError(error))
     );
-    console.log('speler:' + reply);
-    return reply;
+  }
+
+  getTeam(teamID): Observable<Team> {
+    // const url = this.url.volleybalService;
+    const url = 'http://localhost:8080/team/' + teamID + '/';
+    const team = this.http.get<Team>(url);
+    return team.pipe(
+      map(response  => response as Team),
+      catchError((error: HttpErrorResponse) => throwError(error))
+    );
   }
 }
